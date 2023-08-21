@@ -28,6 +28,9 @@ public class UserService {
     public List<User>readUsersByName(String name){
         return repository.findAllByFirstNameContainsIgnoreCase(name);
     }
+    public List<User>readUsersByLastName(String lastName){
+        return repository.findAllByLastNameContainsIgnoreCase(lastName);
+    }
 
     public User readUser(long id) {
         return repository.findById(id)

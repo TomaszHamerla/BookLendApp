@@ -8,7 +8,6 @@ import com.example.booklendapp.service.UserService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,6 +48,16 @@ public class UserController {
     @GetMapping("/findByFirstName/{name}")
     ResponseEntity<List<User>>readByName(@PathVariable String name){
         List<User> users = service.readUsersByName(name);
+        return checkListOfUsers(users);
+    }
+    @GetMapping("/findByLastName/{lastName}")
+    ResponseEntity<List<User>>readByLastName(@PathVariable String lastName){
+        List<User> users = service.readUsersByLastName(lastName);
+       return checkListOfUsers(users);
+    }
+
+    private ResponseEntity<List<User>> checkListOfUsers(List<User>users){
+
         if (users.isEmpty()){
             return ResponseEntity.noContent().build();
         }else
