@@ -46,6 +46,14 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+    @GetMapping("/findByFirstName/{name}")
+    ResponseEntity<List<User>>readByName(@PathVariable String name){
+        List<User> users = service.readUsersByName(name);
+        if (users.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }else
+            return ResponseEntity.ok(users);
+    }
     @PatchMapping("/{id}")
     ResponseEntity<User>updateUser(@Valid @RequestBody UserUpdateDto userUpdateDto, @PathVariable long id){
         try{

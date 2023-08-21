@@ -25,6 +25,10 @@ public class UserService {
         return repository.findAll();
     }
 
+    public List<User>readUsersByName(String name){
+        return repository.findAllByFirstNameContainsIgnoreCase(name);
+    }
+
     public User readUser(long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User with given id not found !"));
