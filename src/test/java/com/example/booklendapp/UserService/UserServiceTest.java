@@ -1,8 +1,9 @@
-package com.example.booklendapp.service;
+package com.example.booklendapp.UserService;
 
 import com.example.booklendapp.entity.User;
 import com.example.booklendapp.exception.ResourceNotFoundException;
 import com.example.booklendapp.repository.UserRepository;
+import com.example.booklendapp.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
