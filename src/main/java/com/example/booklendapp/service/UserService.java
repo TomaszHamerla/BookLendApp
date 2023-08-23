@@ -32,7 +32,7 @@ public class UserService {
         return repository.findAllByLastNameContainsIgnoreCase(lastName);
     }
 
-    public User readUser(long id) {
+    public User readUserById(long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User with given id not found !"));
     }
