@@ -1,6 +1,7 @@
 package com.example.booklendapp.service;
 
 import com.example.booklendapp.entity.User;
+import com.example.booklendapp.exception.InvalidUserDataException;
 import com.example.booklendapp.exception.ResourceNotFoundException;
 import com.example.booklendapp.model.UserDto;
 import com.example.booklendapp.model.UserUpdateDto;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserService implements CheckDateService {
     private final UserRepository repository;
 
     public UserService(UserRepository repository) {
@@ -51,15 +52,23 @@ public class UserService {
             user.setFirstName(userUpdateDto.getFirstName());
         }
         if (userUpdateDto.getLastName() != null) {
+            checkData(userUpdateDto.getLastName());
             user.setLastName(userUpdateDto.getLastName());
         }
         if (userUpdateDto.getEmail() != null) {
+            checkData(userUpdateDto.getEmail());
             user.setEmail(userUpdateDto.getEmail());
         }
 
         return repository.save(user);
 
 
+    }
+    @Override
+    public void checkData(String data){
+        if (data.isBlank()){
+            throw  new InvalidUserDataException("LastName and email can not be blank !");
+        }
     }
 
     private void existsById(long id) {
