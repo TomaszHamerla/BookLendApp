@@ -1,6 +1,7 @@
 package com.example.booklendapp.controller;
 
 import com.example.booklendapp.entity.User;
+import com.example.booklendapp.exception.InvalidUserDataException;
 import com.example.booklendapp.exception.ResourceNotFoundException;
 import com.example.booklendapp.model.UserDto;
 import com.example.booklendapp.model.UserUpdateDto;
@@ -64,7 +65,7 @@ public class UserController {
             return ResponseEntity.ok(users);
     }
     @PatchMapping("/{id}")
-    ResponseEntity<User>updateUser(@Valid @RequestBody UserUpdateDto userUpdateDto, @PathVariable long id){
+    ResponseEntity<User>updateUser(@RequestBody UserUpdateDto userUpdateDto, @PathVariable long id){
         try{
             User result = service.updateUser(userUpdateDto, id);
             logger.info("User updated !");
@@ -72,6 +73,9 @@ public class UserController {
         }catch (ResourceNotFoundException e) {
             logger.error(e.getMessage());
             return ResponseEntity.notFound().build();
+        }catch (InvalidUserDataException e){
+            logger.error(e.getMessage());
+            return ResponseEntity.badRequest().build();
         }
     }
     @DeleteMapping("/{id}")
