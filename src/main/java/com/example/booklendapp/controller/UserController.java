@@ -38,7 +38,7 @@ public class UserController {
     @GetMapping("/{id}")
     ResponseEntity<User> readUser(@PathVariable long id) {
         try {
-            User user = service.readUser(id);
+            User user = service.readUserById(id);
             return ResponseEntity.ok(user);
         } catch (ResourceNotFoundException e) {
             logger.error(e.getMessage());
