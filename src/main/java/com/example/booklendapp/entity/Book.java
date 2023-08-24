@@ -1,6 +1,7 @@
 package com.example.booklendapp.entity;
 
 import com.example.booklendapp.model.BookDto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,8 +19,11 @@ public class Book {
     private String title;
 
     private String author;
-    public Book(BookDto bookDto){
-        this.title= bookDto.getTitle();
-        this.author= bookDto.getAuthor();
+
+    private boolean available = true;
+
+    public Book(BookDto bookDto) {
+        this.title = bookDto.getTitle();
+        this.author = bookDto.getAuthor();
     }
 }

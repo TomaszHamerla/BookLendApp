@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 @Data
@@ -19,6 +21,8 @@ public class User {
     private String lastName;
 
     private  String email;
+    @OneToMany
+    private List<Book>books;
 
     public User (UserDto userDto){
         this.firstName= userDto.getFirstName();

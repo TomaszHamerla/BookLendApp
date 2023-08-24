@@ -43,9 +43,10 @@ public class BookController {
             return ResponseEntity.notFound().build();
         }
     }
-    @GetMapping("/findByPrefix/{prefix}")
-    ResponseEntity<List<Book>>readBooksByPrefix(@PathVariable String prefix){
-        List<Book> books = service.readBooksByPrefix(prefix,prefix);
+    @GetMapping("/findByPrefix")
+    ResponseEntity<List<Book>>readBooksByPrefix(@RequestParam(name ="authorPrefix",required = false)String authorPrefix,
+                                                @RequestParam(name = "titlePrefix",required = false)String titlePrefix){
+        List<Book> books = service.readBooksByPrefix(authorPrefix,titlePrefix);
         if (books.isEmpty()){
             return ResponseEntity.notFound().build();
         }else {
