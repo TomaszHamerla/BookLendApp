@@ -82,7 +82,7 @@ class BorrowBook {
     }
 
     @Test
-    void borrowBook_createLoan() {
+    void borrowBook_createLoan_withuserIdFound_andBookIdFound_andBookIsAvailable() {
         //given
         User user = new User();
         Book book = new Book();
