@@ -27,6 +27,11 @@ public class LoanController {
     ResponseEntity<List<LoanReadModel>>readAllLoans(){
         return ResponseEntity.ok(service.readAll());
     }
+    @GetMapping("/searchByLoanStatus")
+        ResponseEntity<List<LoanReadModel>>readByLoanStatus(@RequestParam(defaultValue = "true")boolean status){
+            return ResponseEntity.ok(service.readByLoanStatus(status));
+        }
+
     @PostMapping("/{userId}/{bookId}")
     ResponseEntity<LoanReadModel>borrowBook(@PathVariable long userId, @PathVariable long bookId){
         try{

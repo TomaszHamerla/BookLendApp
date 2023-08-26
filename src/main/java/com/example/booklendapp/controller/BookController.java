@@ -34,7 +34,7 @@ public class BookController {
         return ResponseEntity.ok(service.readAllBooks());
     }
     @GetMapping("/searchByAvailable")
-    ResponseEntity<List<Book>>readByAvailable(@RequestParam(name = "available")boolean available){
+    ResponseEntity<List<Book>>readByAvailable(@RequestParam(defaultValue = "true")boolean available){
         return ResponseEntity.ok(service.readByAvailable(available));
     }
     @GetMapping("/{id}")

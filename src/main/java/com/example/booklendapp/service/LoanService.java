@@ -68,4 +68,9 @@ public class LoanService {
                 .map(LoanReadModel::new)
                 .collect(Collectors.toList());
     }
+    public List<LoanReadModel>readByLoanStatus(boolean status){
+        return loanRepository.findAllByLoanStatus(status).stream()
+                .map(LoanReadModel::new)
+                .collect(Collectors.toList());
+    }
 }
