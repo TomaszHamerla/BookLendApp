@@ -31,6 +31,9 @@ public class BookService implements CheckDateService {
     public List<Book> readAllBooks() {
         return repository.findAll();
     }
+    public List<Book>readByAvailable(boolean available){
+        return repository.findAllByAvailable(available);
+    }
 
     public List<Book> readBooksByPrefix(String author, String title) {
         return repository.findAllByAuthorContainingIgnoreCaseOrTitleContainingIgnoreCase(author, title);

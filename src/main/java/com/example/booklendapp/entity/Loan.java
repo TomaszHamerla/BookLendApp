@@ -24,6 +24,7 @@ public class Loan {
     @JoinColumn(name = "book_id")
     private Book book;
 
+    private boolean loanStatus=true;
     private LocalDate loanDate;
     private LocalDate deadline;
 }

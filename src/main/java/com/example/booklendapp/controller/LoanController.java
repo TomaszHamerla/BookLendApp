@@ -2,7 +2,9 @@ package com.example.booklendapp.controller;
 
 import com.example.booklendapp.entity.Loan;
 import com.example.booklendapp.exception.BookIsNotAvailableException;
+import com.example.booklendapp.exception.LoanIsNotAvailable;
 import com.example.booklendapp.exception.ResourceNotFoundException;
+import com.example.booklendapp.model.LoanReadModel;
 import com.example.booklendapp.service.LoanService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,14 +24,15 @@ public class LoanController {
         this.service = service;
     }
     @GetMapping
-    ResponseEntity<List<Loan>>readAllLoans(){
+    ResponseEntity<List<LoanReadModel>>readAllLoans(){
         return ResponseEntity.ok(service.readAll());
     }
     @PostMapping("/{userId}/{bookId}")
-    ResponseEntity<Loan>borrowBook(@PathVariable long userId,@PathVariable long bookId){
+    ResponseEntity<LoanReadModel>borrowBook(@PathVariable long userId, @PathVariable long bookId){
         try{
             Loan loan = service.borrowBook(userId, bookId);
-            return ResponseEntity.created(URI.create("/"+loan.getId())).body(loan);
+            LoanReadModel loanReadModel = new LoanReadModel(loan);
+            return ResponseEntity.created(URI.create("/"+loan.getId())).body(loanReadModel);
         }catch (ResourceNotFoundException e){
             logger.error(e.getMessage());
             return ResponseEntity.notFound().build();
@@ -40,11 +43,14 @@ public class LoanController {
     }
 
     @PatchMapping("/{id}")
-    ResponseEntity<Loan>returnBorrowBook(@PathVariable long id){
+    ResponseEntity<LoanReadModel>returnBorrowBook(@PathVariable long id){
         try{
             Loan loan = service.returnBorrowBook(id);
-            return ResponseEntity.ok(loan);
+            return ResponseEntity.ok(new LoanReadModel(loan));
         }catch (ResourceNotFoundException e){
+            logger.error(e.getMessage());
+            return ResponseEntity.notFound().build();
+        }catch (LoanIsNotAvailable e){
             logger.error(e.getMessage());
             return ResponseEntity.notFound().build();
         }

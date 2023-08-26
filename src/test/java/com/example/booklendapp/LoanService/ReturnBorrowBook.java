@@ -3,6 +3,7 @@ package com.example.booklendapp.LoanService;
 import com.example.booklendapp.entity.Book;
 import com.example.booklendapp.entity.Loan;
 import com.example.booklendapp.entity.User;
+import com.example.booklendapp.exception.LoanIsNotAvailable;
 import com.example.booklendapp.exception.ResourceNotFoundException;
 import com.example.booklendapp.repository.LoanRepository;
 import com.example.booklendapp.service.LoanService;
@@ -42,7 +43,20 @@ public class ReturnBorrowBook {
         verify(loanRepository,never()).save(any());
     }
     @Test
-    void returnBorrowBook_withLoanIdFound(){
+    void returnBorrowBook_withLoanIdFound_andAvailableFalse_throwsLoanIsNotAvailableException(){
+        //given
+        Loan loan = new Loan();
+        loan.setLoanStatus(false);
+        when(loanRepository.findById(anyLong())).thenReturn(Optional.of(loan));
+        //when
+        Exception exception= assertThrows(LoanIsNotAvailable.class,() -> service.returnBorrowBook(loan.getId()));
+        //then
+        assertThat(exception).hasMessageContaining("Loan is not available to change !");
+        verify(loanRepository,never()).save(any());
+
+    }
+    @Test
+    void returnBorrowBook_withLoanIdFound_andAvailableIsTrue(){
         //given
         User user = new User();
         Book book = new Book();
@@ -62,6 +76,7 @@ public class ReturnBorrowBook {
         //then
         assertNotNull(returnLoanBook);
         assertTrue(book.isAvailable());
+        assertFalse(loan.isLoanStatus());
         assertTrue(user.getBooks().isEmpty());
 
     }

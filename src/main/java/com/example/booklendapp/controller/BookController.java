@@ -33,6 +33,10 @@ public class BookController {
     ResponseEntity<List<Book>>readAllBooks(){
         return ResponseEntity.ok(service.readAllBooks());
     }
+    @GetMapping("/searchByAvailable")
+    ResponseEntity<List<Book>>readByAvailable(@RequestParam(name = "available")boolean available){
+        return ResponseEntity.ok(service.readByAvailable(available));
+    }
     @GetMapping("/{id}")
     ResponseEntity<Book>readBook(@PathVariable long id){
         try {
