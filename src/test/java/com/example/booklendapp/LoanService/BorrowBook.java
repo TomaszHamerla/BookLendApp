@@ -9,7 +9,6 @@ import com.example.booklendapp.repository.BookRepository;
 import com.example.booklendapp.repository.LoanRepository;
 import com.example.booklendapp.repository.UserRepository;
 import com.example.booklendapp.service.LoanService;
-import jdk.jfr.Description;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -24,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
-class LoanServiceTest {
+class BorrowBook {
     @Mock
     private UserRepository userRepository;
     @Mock

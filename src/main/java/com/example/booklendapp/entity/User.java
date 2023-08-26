@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,7 +23,7 @@ public class User {
 
     private  String email;
     @OneToMany
-    private List<Book>books;
+    private List<Book>books=new ArrayList<>();
 
     public User (UserDto userDto){
         this.firstName= userDto.getFirstName();
