@@ -34,30 +34,19 @@ public class LoanController {
 
     @PostMapping("/{userId}/{bookId}")
     ResponseEntity<LoanReadModel>borrowBook(@PathVariable long userId, @PathVariable long bookId){
-        try{
+
             Loan loan = service.borrowBook(userId, bookId);
             LoanReadModel loanReadModel = new LoanReadModel(loan);
             return ResponseEntity.created(URI.create("/"+loan.getId())).body(loanReadModel);
-        }catch (ResourceNotFoundException e){
-            logger.error(e.getMessage());
-            return ResponseEntity.notFound().build();
-        }catch (BookIsNotAvailableException e){
-            logger.error(e.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+
+
     }
 
     @PatchMapping("/{id}")
     ResponseEntity<LoanReadModel>returnBorrowBook(@PathVariable long id){
-        try{
+
             Loan loan = service.returnBorrowBook(id);
             return ResponseEntity.ok(new LoanReadModel(loan));
-        }catch (ResourceNotFoundException e){
-            logger.error(e.getMessage());
-            return ResponseEntity.notFound().build();
-        }catch (LoanIsNotAvailable e){
-            logger.error(e.getMessage());
-            return ResponseEntity.notFound().build();
-        }
+
     }
 }

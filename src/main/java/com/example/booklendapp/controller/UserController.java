@@ -38,13 +38,10 @@ public class UserController {
     }
     @GetMapping("/{id}")
     ResponseEntity<User> readUser(@PathVariable long id) {
-        try {
+
             User user = service.readUserById(id);
             return ResponseEntity.ok(user);
-        } catch (ResourceNotFoundException e) {
-            logger.error(e.getMessage());
-            return ResponseEntity.notFound().build();
-        }
+
     }
     @GetMapping("/findByFirstName/{name}")
     ResponseEntity<List<User>>readByName(@PathVariable String name){
@@ -66,26 +63,18 @@ public class UserController {
     }
     @PatchMapping("/{id}")
     ResponseEntity<User>updateUser(@RequestBody UserUpdateDto userUpdateDto, @PathVariable long id){
-        try{
+
             User result = service.updateUser(userUpdateDto, id);
             logger.info("User updated !");
             return ResponseEntity.ok(result);
-        }catch (ResourceNotFoundException e) {
-            logger.error(e.getMessage());
-            return ResponseEntity.notFound().build();
-        }catch (InvalidUserDataException e){
-            logger.error(e.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+
+
     }
     @DeleteMapping("/{id}")
     ResponseEntity<User>deleteUser(@PathVariable long id){
-        try{
+
             service.deleteUser(id);
             return ResponseEntity.ok().build();
-        }catch (ResourceNotFoundException e){
-            logger.error(e.getMessage());
-            return ResponseEntity.notFound().build();
-        }
+
     }
 }

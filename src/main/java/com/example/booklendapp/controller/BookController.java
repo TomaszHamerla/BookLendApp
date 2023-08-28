@@ -20,65 +20,61 @@ import java.util.List;
 public class BookController {
     private final BookService service;
     private final Logger logger = LoggerFactory.getLogger(BookController.class);
+
     public BookController(BookService service) {
         this.service = service;
     }
+
     @PostMapping
-    ResponseEntity<Book>createBook(@Valid @RequestBody BookDto bookDto){
+    ResponseEntity<Book> createBook(@Valid @RequestBody BookDto bookDto) {
         Book result = service.createBook(bookDto);
         logger.info("Book created !");
-        return ResponseEntity.created(URI.create("/"+result.getId())).body(result);
+        return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
     }
+
     @GetMapping
-    ResponseEntity<List<Book>>readAllBooks(){
+    ResponseEntity<List<Book>> readAllBooks() {
         return ResponseEntity.ok(service.readAllBooks());
     }
+
     @GetMapping("/searchByAvailable")
-    ResponseEntity<List<Book>>readByAvailable(@RequestParam(defaultValue = "true")boolean available){
+    ResponseEntity<List<Book>> readByAvailable(@RequestParam(defaultValue = "true") boolean available) {
         return ResponseEntity.ok(service.readByAvailable(available));
     }
+
     @GetMapping("/{id}")
-    ResponseEntity<Book>readBook(@PathVariable long id){
-        try {
-            Book book = service.readBookById(id);
-            return ResponseEntity.ok(book);
-        }catch (ResourceNotFoundException e){
-            logger.error(e.getMessage());
-            return ResponseEntity.notFound().build();
-        }
+    ResponseEntity<Book> readBook(@PathVariable long id) {
+
+        Book book = service.readBookById(id);
+        return ResponseEntity.ok(book);
+
     }
+
     @GetMapping("/findByPrefix")
-    ResponseEntity<List<Book>>readBooksByPrefix(@RequestParam(name ="authorPrefix",required = false)String authorPrefix,
-                                                @RequestParam(name = "titlePrefix",required = false)String titlePrefix){
-        List<Book> books = service.readBooksByPrefix(authorPrefix,titlePrefix);
-        if (books.isEmpty()){
+    ResponseEntity<List<Book>> readBooksByPrefix(@RequestParam(name = "authorPrefix", required = false) String authorPrefix, @RequestParam(name = "titlePrefix", required = false) String titlePrefix) {
+        List<Book> books = service.readBooksByPrefix(authorPrefix, titlePrefix);
+        if (books.isEmpty()) {
             return ResponseEntity.notFound().build();
-        }else {
+        } else {
             return ResponseEntity.ok(books);
         }
     }
+
     @PatchMapping("/{id}")
-    ResponseEntity<Book>bookUpdate(@RequestBody BookUpdateDto bookUpdateDto , @PathVariable long id){
-        try{
-            Book book = service.updateBook(bookUpdateDto, id);
-            logger.info("Book updated !");
-            return ResponseEntity.ok(book);
-        }catch (ResourceNotFoundException e){
-            logger.error(e.getMessage());
-            return ResponseEntity.notFound().build();
-        }catch (InvalidBookDataException e){
-            logger.error(e.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+    ResponseEntity<Book> bookUpdate(@RequestBody BookUpdateDto bookUpdateDto, @PathVariable long id) {
+
+        Book book = service.updateBook(bookUpdateDto, id);
+        logger.info("Book updated !");
+        return ResponseEntity.ok(book);
+
     }
+
     @DeleteMapping("/{id}")
-    ResponseEntity<Book>deleteBook(@PathVariable long id){
-        try{
-            service.deleteBook(id);
-            return ResponseEntity.ok().build();
-        }catch (ResourceNotFoundException e){
-            logger.error(e.getMessage());
-            return ResponseEntity.notFound().build();
-        }
+    ResponseEntity<Book> deleteBook(@PathVariable long id) {
+
+        service.deleteBook(id);
+        return ResponseEntity.ok().build();
+
     }
 }
+
