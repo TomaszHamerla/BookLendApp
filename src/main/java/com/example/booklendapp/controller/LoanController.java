@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/loans")
 public class LoanController {
     private final LoanService service;
-    private final Logger logger = LoggerFactory.getLogger(LoanController.class);
+    private static final Logger logger = LoggerFactory.getLogger(LoanController.class);
 
     public LoanController(LoanService service) {
         this.service = service;

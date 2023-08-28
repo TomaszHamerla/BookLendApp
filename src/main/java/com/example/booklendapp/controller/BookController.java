@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/books")
 public class BookController {
     private final BookService service;
-    private final Logger logger = LoggerFactory.getLogger(BookController.class);
+    private static final Logger logger = LoggerFactory.getLogger(BookController.class);
 
     public BookController(BookService service) {
         this.service = service;

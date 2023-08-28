@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
     private final UserService service;
-    private final Logger logger= LoggerFactory.getLogger(UserController.class);
+    private static final Logger logger= LoggerFactory.getLogger(UserController.class);
 
     public UserController(UserService service) {
         this.service = service;

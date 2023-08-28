@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class ExceptionControllerAdvice {
-    private final Logger logger = LoggerFactory.getLogger(ExceptionControllerAdvice.class);
+    private static final Logger logger = LoggerFactory.getLogger(ExceptionControllerAdvice.class);
 
        private static final Map<Class<? extends Exception>, HttpStatus> EXCEPTION_STATUS_MAP = new HashMap<>();
     static {
