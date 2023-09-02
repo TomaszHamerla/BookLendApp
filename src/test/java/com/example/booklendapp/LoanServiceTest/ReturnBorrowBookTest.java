@@ -1,4 +1,4 @@
-package com.example.booklendapp.LoanService;
+package com.example.booklendapp.LoanServiceTest;
 
 import com.example.booklendapp.entity.Book;
 import com.example.booklendapp.entity.Loan;
@@ -23,7 +23,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
-public class ReturnBorrowBook {
+public class ReturnBorrowBookTest {
+
     @Mock
     private LoanRepository loanRepository;
     @InjectMocks

@@ -15,13 +15,14 @@ import java.util.Map;
 public class ExceptionControllerAdvice {
     private static final Logger logger = LoggerFactory.getLogger(ExceptionControllerAdvice.class);
 
-       private static final Map<Class<? extends Exception>, HttpStatus> EXCEPTION_STATUS_MAP = new HashMap<>();
+    private static final Map<Class<? extends Exception>, HttpStatus> EXCEPTION_STATUS_MAP = new HashMap<>();
+
     static {
         EXCEPTION_STATUS_MAP.put(BookIsNotAvailableException.class, HttpStatus.BAD_REQUEST);
         EXCEPTION_STATUS_MAP.put(InvalidBookDataException.class, HttpStatus.BAD_REQUEST);
         EXCEPTION_STATUS_MAP.put(InvalidUserDataException.class, HttpStatus.BAD_REQUEST);
         EXCEPTION_STATUS_MAP.put(LoanIsNotAvailable.class, HttpStatus.BAD_REQUEST);
-        EXCEPTION_STATUS_MAP.put(ResourceNotFoundException.class,HttpStatus.NOT_FOUND);
+        EXCEPTION_STATUS_MAP.put(ResourceNotFoundException.class, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(Exception.class)
