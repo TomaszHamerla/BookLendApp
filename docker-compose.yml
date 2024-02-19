@@ -1,10 +1,17 @@
 version: '3'
 services:
-
-  spring-boot-app:
-    container_name: book-lend
-    image: booklend
+  backend:
+    image: booklendjava
     ports:
       - "8080:8080"
-    volumes:
-      - ./BookLendApp.mv.db:/app/data/BookLendApp.mv.db
+
+  frontend:
+    image: booklendreact
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+networks:
+  spring-boot-network:
+    driver: bridge
