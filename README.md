@@ -8,3 +8,6 @@ BookLendApp is a simple Java Spring application that allows users to manage and 
 4. Execute the Docker container to run the application.
    ```bash
    docker run -p 8080:8080 saiq123/booklend
+## Demo
+Check out the Swagger documentation for the deployed application on Azure:
+[BookLendApp Swagger Demo](https://booklendapp.azurewebsites.net/swagger-ui/index.html#/)
